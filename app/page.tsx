@@ -4,16 +4,8 @@ import { useEffect, useState } from 'react'
 import CountryInfo from './components/CountryInfo'
 import CountryList from './components/CountryList'
 
+import { Country } from '@/types/types'
 import './globals.css'
-
-interface Country {
-	name: string
-	borders: string[]
-	capital: string
-	population: number
-	flag: string
-	code: string
-}
 
 export default function Home() {
 	const [countries, setCountries] = useState<Country[]>([])
@@ -25,16 +17,18 @@ export default function Home() {
 			.then(data => {
 				const formattedCountries = data.map((country: any) => ({
 					name: country.name.common,
-					borders: country.borders || [],
+					borders: country.borders
+						? country.borders.map((code: string) => {
+								const neighbor = data.find((c: any) => c.cca3 === code)
+								return neighbor ? neighbor.name.common : code
+						  })
+						: [],
 					capital: country.capital ? country.capital[0] : 'Неизвестно',
 					population: country.population,
 					flag: country.flags.png,
 					code: country.cca3,
 				}))
 				setCountries(formattedCountries)
-			})
-			.catch(error => {
-				console.error('Ошибка:', error)
 			})
 	}, [])
 

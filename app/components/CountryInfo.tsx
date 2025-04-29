@@ -1,17 +1,6 @@
 import React from 'react';  
 import '../../styles/country.scss'
-
-interface Country {  
-  name: string;  
-  borders: string[];  
-  capital: string;  
-  population: number;  
-  flag: string;  
-}  
-
-interface CountryInfoProps {  
-  country: Country | null;  
-}  
+import { CountryInfoProps } from '@/types/types'
 
 const CountryInfo: React.FC<CountryInfoProps> = ({ country }) => {  
   if (!country) {  

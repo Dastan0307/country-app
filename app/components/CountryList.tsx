@@ -1,16 +1,6 @@
+import { CountryListProps } from '@/types/types'
 import React from 'react'
 import '../../styles/country.scss'
-
-interface Country {
-	name: string
-	code: string
-}
-
-interface CountryListProps {
-	countries: Country[]
-  onSelectCountry: (country: Country) => void;
-	selectedCountryCode: string | null
-}
 
 const CountryList: React.FC<CountryListProps> = ({
 	countries,
